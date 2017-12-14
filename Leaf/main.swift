@@ -7,6 +7,32 @@
 //
 
 import Foundation
+//
+//print("Hello, World!")
+//
+//func main() {
+//    let array = [10, 20, 30, 40]
+//
+//    for element in array {
+//        print("Value is: \(element)")
+//    }
+//}
+//
+//func sum1(x: int, y: int) -> int {
+//    return x + y
+//}
+//
+//func sum2(x: int, y: int) -> int {
+//    => x + y
+//}
+//
+//func sum1(x: int, y: int) -> int {
+//    rn x + y
+//}
+//
+//
+//for x in 0..<10 {
+//    print("\(x)")
+//}
 
-print("Hello, World!")
-
+//ASCIIControlCharacter.carriageReturn

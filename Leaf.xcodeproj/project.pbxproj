@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D04650DE1FE0738700FA5A0E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04650DD1FE0738700FA5A0E /* Token.swift */; };
+		D04650E41FE309A400FA5A0E /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04650E31FE309A400FA5A0E /* Lexer.swift */; };
 		D08FF6EB1FD5F91600616B26 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FF6EA1FD5F91600616B26 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D04650DD1FE0738700FA5A0E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		D04650E31FE309A400FA5A0E /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		D08FF6E71FD5F91600616B26 /* Leaf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Leaf; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08FF6EA1FD5F91600616B26 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				D08FF6EA1FD5F91600616B26 /* main.swift */,
+				D04650DD1FE0738700FA5A0E /* Token.swift */,
+				D04650E31FE309A400FA5A0E /* Lexer.swift */,
 			);
 			path = Leaf;
 			sourceTree = "<group>";
@@ -121,6 +127,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08FF6EB1FD5F91600616B26 /* main.swift in Sources */,
+				D04650E41FE309A400FA5A0E /* Lexer.swift in Sources */,
+				D04650DE1FE0738700FA5A0E /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
