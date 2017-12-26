@@ -6,8 +6,11 @@
 //  Copyright © 2017 Peter Entwistle. All rights reserved.
 //
 
-enum Token: String {
-
+struct Token {
+    let tokenType: TokenType
+    let value: String
+}
+enum TokenType: String {
     // Keywords
     case tokLet = "let"
     case tokVar = "var"
@@ -87,3 +90,4 @@ enum Token: String {
     case tokAnd = "&&"
     case tokOr = "||"
 }
+
