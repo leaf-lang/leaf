@@ -1,16 +1,16 @@
 //
 //  Token.swift
-//  Leaf
+//  LeafCore
 //
 //  Created by Peter Entwistle on 12/12/2017.
 //  Copyright © 2017 Peter Entwistle. All rights reserved.
 //
 
-struct Token {
-    let tokenType: TokenType
-    let value: String
+public struct Token {
+    public let tokenType: TokenType
+    public let value: String
 }
-enum TokenType: String {
+public enum TokenType: String {
     // Keywords
     case tokLet = "let"
     case tokVar = "var"
