@@ -47,6 +47,8 @@ fn test(x: int) -> int {
 
 var tokens = [Token]()
 var buffer = String()
+var lineNumber = 1
+var charPosition = 0
 
 testData.forEach({
     if $0 == " " || $0 == "\n" {
@@ -54,12 +56,21 @@ testData.forEach({
             tokens.append(Token(tokenType: tokenType, value: buffer))
             print(tokens.last!)
         } else {
-            print("Error undefined value: \(buffer)")
+            if !buffer.isEmpty{
+                print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
+            }
         }
         
         buffer.removeAll()
     } else {
         buffer.append($0)
+    }
+    
+    if $0 == "\n" {
+        lineNumber += 1
+        charPosition = 0
+    } else {
+        charPosition += 1
     }
 })
 
