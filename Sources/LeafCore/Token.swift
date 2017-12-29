@@ -100,5 +100,13 @@ public enum TokenType: String {
     // Conditional operators
     case tokAnd = "&&"
     case tokOr = "||"
+    
+    case tokIdentifier
+    case tokNumber
 }
 
+extension String {
+    public var isIdentifier: Bool {        
+        return !isEmpty && range(of: "^[a-zA-Z][a-zA-Z0-9_]*$", options: .regularExpression) != nil
+    }
+}
