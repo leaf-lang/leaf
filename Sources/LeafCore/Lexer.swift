@@ -37,7 +37,7 @@ public class Lexer {
             getToken(for: $0)
         })
         if !buffer.isEmpty {
-            getToken()
+            getToken(buffer: buffer)
         }
         
         print("Total rocognised tokens: \(tokens.count)")
@@ -46,7 +46,8 @@ public class Lexer {
     
     func getToken(for c: Character) {
         if c == " " || c == "\n"  {
-            getToken()
+            getToken(buffer: buffer)
+            buffer.removeAll()
         } else {
             buffer.append(c)
         }
@@ -59,7 +60,7 @@ public class Lexer {
         }
     }
     
-    func getToken() {
+    func getToken(buffer: String) {
         if let tokenType = TokenType(rawValue: buffer) {
             tokens.append(Token(tokenType: tokenType, value: buffer))
             print(tokens.last!)
@@ -74,9 +75,29 @@ public class Lexer {
                 tokens.append(Token(tokenType: .tokDoubleLiteral, value: buffer))
                 print(tokens.last!)
             } else if !buffer.isEmpty {
-                print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
+                
+                var error = true
+                var newBuffer = String()
+                for i in buffer {
+                    newBuffer.append(i)
+                    if let tokenType = TokenType(rawValue: i.description) {
+                        newBuffer.removeLast()
+                        getToken(buffer: newBuffer)
+                        
+                        tokens.append(Token(tokenType: tokenType, value: i.description))
+                        print(tokens.last!)
+                        
+                        newBuffer.removeAll()
+                        error = false
+                    }
+                }
+                
+                if error {
+                    tokens.append(Token(tokenType: .tokInvalidToken, value: buffer))
+                    print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
+                }
             }
         }
-        buffer.removeAll()
+        
     }
 }

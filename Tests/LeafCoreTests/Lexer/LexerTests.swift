@@ -35,6 +35,17 @@ class LexerTests: XCTestCase {
         XCTAssertEqual(value.count, 15)
     }
     
+    func testFunctionContainsAnInvalidToken() {
+        let value = lexer.lex(data: """
+                                    fn test(x: int) -> int {
+                                        return x ^* 3
+                                    }
+                                    """)
+        
+        XCTAssertEqual(value.count, 16)
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalidToken }))
+    }
+    
     func testConstantAssignmentIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     let x = 10
