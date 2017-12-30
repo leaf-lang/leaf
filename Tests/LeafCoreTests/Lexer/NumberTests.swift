@@ -23,18 +23,18 @@ import LeafCore
 class NumberTests: XCTestCase {
     
     func testGivenANumberWithASpace_ThenTheNumberIsInvalid() {
-        XCTAssertFalse("687 567".isNumber)
+        XCTAssertFalse("687 567".isInt)
     }
     
     func testGivenANumberContainingLetters_ThenTheNumberIsInvalid() {
-        XCTAssertFalse("687test567".isNumber)
+        XCTAssertFalse("687test567".isInt)
     }
     
     func testGiven123456789_ThenTheNumberIsValid() {
-        XCTAssertTrue("123456789".isNumber)
+        XCTAssertTrue("123456789".isInt)
     }
     
     func testGiven0_ThenTheNumberIsValid() {
-        XCTAssertTrue("0".isNumber)
+        XCTAssertTrue("0".isInt)
     }
 }

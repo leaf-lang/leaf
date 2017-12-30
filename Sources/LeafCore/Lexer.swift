@@ -67,8 +67,11 @@ public class Lexer {
             if buffer.isIdentifier {
                 tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
                 print(tokens.last!)
-            } else if buffer.isNumber {
-                tokens.append(Token(tokenType: .tokNumber, value: buffer))
+            } else if buffer.isInt {
+                tokens.append(Token(tokenType: .tokIntLiteral, value: buffer))
+                print(tokens.last!)
+            } else if buffer.isDouble {
+                tokens.append(Token(tokenType: .tokDoubleLiteral, value: buffer))
                 print(tokens.last!)
             } else if !buffer.isEmpty {
                 print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")

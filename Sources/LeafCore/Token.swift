@@ -102,7 +102,8 @@ public enum TokenType: String {
     case tokOr = "||"
     
     case tokIdentifier
-    case tokNumber
+    case tokIntLiteral
+    case tokDoubleLiteral
 }
 
 extension String {
@@ -110,7 +111,11 @@ extension String {
         return range(of: "^[a-zA-Z][a-zA-Z0-9_]*$", options: .regularExpression) != nil
     }
     
-    public var isNumber: Bool {
+    public var isInt: Bool {
         return range(of: "^[0-9]+$", options: .regularExpression) != nil
+    }
+    
+    public var isDouble: Bool {
+        return range(of: "^[0-9]+\\.[0-9]+$", options: .regularExpression) != nil
     }
 }
