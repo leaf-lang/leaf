@@ -107,6 +107,10 @@ public enum TokenType: String {
 
 extension String {
     public var isIdentifier: Bool {        
-        return !isEmpty && range(of: "^[a-zA-Z][a-zA-Z0-9_]*$", options: .regularExpression) != nil
+        return range(of: "^[a-zA-Z][a-zA-Z0-9_]*$", options: .regularExpression) != nil
+    }
+    
+    public var isNumber: Bool {
+        return range(of: "^[0-9]+$", options: .regularExpression) != nil
     }
 }

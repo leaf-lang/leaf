@@ -18,43 +18,62 @@
 //
 
 public class Lexer {
-
-    public static  func lex(data: String)  -> [Token] {
-        var tokens = [Token]()
-        var buffer = String()
-        var lineNumber = 1
-        var charPosition = 0
+    
+    var tokens: [Token]
+    var buffer: String
+    var lineNumber: Int
+    var charPosition: Int
+    
+    public init() {
+        tokens = [Token]()
+        buffer = String()
+        lineNumber = 1
+        charPosition = 0
+    }
+    
+    public func lex(data: String) -> [Token] {
         
         data.forEach({
-            if $0 == " " || $0 == "\n" {
-                if let tokenType = TokenType(rawValue: buffer) {
-                    tokens.append(Token(tokenType: tokenType, value: buffer))
-                    print(tokens.last!)
-                } else {
-                    if buffer.isIdentifier {
-                        tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
-                        print(tokens.last!)
-                    }
-                    if !buffer.isEmpty {
-                        print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
-                    }
-                }
-                
-                buffer.removeAll()
-            } else {
-                buffer.append($0)
-            }
-            
-            if $0 == "\n" {
-                lineNumber += 1
-                charPosition = 0
-            } else {
-                charPosition += 1
-            }
+            getToken(for: $0)
         })
+        if !buffer.isEmpty {
+            getToken()
+        }
         
         print("Total rocognised tokens: \(tokens.count)")
-        
         return tokens
+    }
+    
+    func getToken(for c: Character) {
+        if c == " " || c == "\n"  {
+            getToken()
+        } else {
+            buffer.append(c)
+        }
+        
+        if c == "\n" {
+            lineNumber += 1
+            charPosition = 0
+        } else {
+            charPosition += 1
+        }
+    }
+    
+    func getToken() {
+        if let tokenType = TokenType(rawValue: buffer) {
+            tokens.append(Token(tokenType: tokenType, value: buffer))
+            print(tokens.last!)
+        } else {
+            if buffer.isIdentifier {
+                tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
+                print(tokens.last!)
+            } else if buffer.isNumber {
+                tokens.append(Token(tokenType: .tokNumber, value: buffer))
+                print(tokens.last!)
+            } else if !buffer.isEmpty {
+                print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
+            }
+        }
+        buffer.removeAll()
     }
 }

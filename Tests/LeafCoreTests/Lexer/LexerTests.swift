@@ -24,7 +24,8 @@ import LeafCore
 class LexerTests: XCTestCase {
     
     func testFunctionIsCorrectlyLexed() {
-        let value = Lexer.lex(data: """
+        let lexer = Lexer()
+        let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
                                         return x * 3
                                     }
@@ -34,20 +35,32 @@ class LexerTests: XCTestCase {
     }
     
     func testConstantAssignmentIsCorrectlyLexed() {
-        let value = Lexer.lex(data: """
+        let lexer = Lexer()
+        let value = lexer.lex(data: """
                                     let x = 10
                                     """)
+        
         XCTAssertEqual(value.count, 4)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokLet }))
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIdentifier }))
+        XCTAssertTrue(value.first(where: { $0.tokenType == .tokIdentifier })?.value == "x")
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokEq }))
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokNumber }))
+        XCTAssertTrue(value.first(where: { $0.tokenType == .tokNumber })?.value == "10")
     }
     
     func testVariableAssignmentIsCorrectlyLexed() {
-        let value = Lexer.lex(data: """
+        let lexer = Lexer()
+        let value = lexer.lex(data: """
                                     var x = 10
                                     """)
+        
         XCTAssertEqual(value.count, 4)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokVar }))
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIdentifier }))
+        XCTAssertTrue(value.first(where: { $0.tokenType == .tokIdentifier })?.value == "x")
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokEq }))
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokNumber }))
+        XCTAssertTrue(value.first(where: { $0.tokenType == .tokNumber })?.value == "10")
     }
 }

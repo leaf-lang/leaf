@@ -1,6 +1,6 @@
 //
-//  Leaf.swift
-//  LeafCore
+//  NumberTests.swift
+//  LeafCoreTests
 //
 //  Copyright 2017 Peter Entwistle
 //
@@ -17,17 +17,24 @@
 //  limitations under the License.
 //
 
-import Foundation
+import XCTest
+import LeafCore
 
-public final class Leaf {
-    private let arguments: [String]
+class NumberTests: XCTestCase {
     
-    public init(arguments: [String] = CommandLine.arguments) {
-        self.arguments = arguments
+    func testGivenANumberWithASpace_ThenTheNumberIsInvalid() {
+        XCTAssertFalse("687 567".isNumber)
     }
     
-    public func run() throws {
-        let lexer = Lexer()
-        let tokens = lexer.lex(data: arguments[0])
+    func testGivenANumberContainingLetters_ThenTheNumberIsInvalid() {
+        XCTAssertFalse("687test567".isNumber)
+    }
+    
+    func testGiven123456789_ThenTheNumberIsValid() {
+        XCTAssertTrue("123456789".isNumber)
+    }
+    
+    func testGiven0_ThenTheNumberIsValid() {
+        XCTAssertTrue("0".isNumber)
     }
 }

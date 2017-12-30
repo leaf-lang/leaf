@@ -61,4 +61,8 @@ class IdentifierTests: XCTestCase {
     func testGivenAnIdentifierBeginsWithANumber_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("64CannotBeginWithANumber".isIdentifier)
     }
+    
+    func testGivenAnEmptyIdentifier_ThenTheIdentifierIsInvalid() {
+        XCTAssertFalse("".isIdentifier)
+    }
 }
