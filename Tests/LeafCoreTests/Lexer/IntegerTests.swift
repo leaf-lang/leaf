@@ -1,5 +1,5 @@
 //
-//  NumberTests.swift
+//  IntegerTests.swift
 //  LeafCoreTests
 //
 //  Copyright 2017 Peter Entwistle
@@ -20,21 +20,21 @@
 import XCTest
 import LeafCore
 
-class NumberTests: XCTestCase {
+class IntegerTests: XCTestCase {
     
-    func testGivenANumberWithASpace_ThenTheNumberIsInvalid() {
+    func testGivenAnIntegerWithASpace_ThenTheIntegerIsInvalid() {
         XCTAssertFalse("687 567".isInt)
     }
     
-    func testGivenANumberContainingLetters_ThenTheNumberIsInvalid() {
+    func testGivenAnIntegerContainingLetters_ThenTheIntegerIsInvalid() {
         XCTAssertFalse("687test567".isInt)
     }
     
-    func testGiven123456789_ThenTheNumberIsValid() {
+    func testGiven123456789_ThenTheIntegerIsValid() {
         XCTAssertTrue("123456789".isInt)
     }
     
-    func testGiven0_ThenTheNumberIsValid() {
+    func testGiven0_ThenTheIntegerIsValid() {
         XCTAssertTrue("0".isInt)
     }
 }
