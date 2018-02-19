@@ -20,29 +20,29 @@
 import XCTest
 import LeafCore
 
-class DoublerTests: XCTestCase {
+class DoubleTests: XCTestCase {
     
-    func testGivenANumberWithASpaceAfterDot_ThenTheNumberIsInvalid() {
+    func testGivenADoubleWithASpaceAfterDot_ThenTheDoubleIsInvalid() {
         XCTAssertFalse("687. 567".isDouble)
     }
     
-    func testGivenANumberWithASpaceBeforerDot_ThenTheNumberIsInvalid() {
+    func testGivenADoubleWithASpaceBeforeTheDot_ThenTheDoubleIsInvalid() {
         XCTAssertFalse("687 .567".isDouble)
     }
     
-    func testGivenANumberWithASpaceBetweenNumbers_ThenTheNumberIsInvalid() {
+    func testGivenADoubleWithASpaceBetweenNumbers_ThenTheDoubleIsInvalid() {
         XCTAssertFalse("6 87.567".isDouble)
     }
     
-    func testGivenANumberContainingLettersAfterDot_ThenTheNumberIsInvalid() {
+    func testGivenADoubleContainingLettersAfterDot_ThenTheDoubleIsInvalid() {
         XCTAssertFalse("68.7test567".isDouble)
     }
     
-    func testGivenANumberContainingLettersBeforeDot_ThenTheNumberIsInvalid() {
+    func testGivenADoubleContainingLettersBeforeDot_ThenTheDoubleIsInvalid() {
         XCTAssertFalse("687test.567".isDouble)
     }
     
-    func testGiven12345Dot6789_ThenTheNumberIsValid() {
+    func testGiven12345Dot6789_ThenTheDoubleIsValid() {
         XCTAssertTrue("12345.6789".isDouble)
     }
     
