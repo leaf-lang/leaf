@@ -43,7 +43,7 @@ class LexerTests: XCTestCase {
                                     """)
         
         XCTAssertEqual(value.count, 16)
-        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalidToken }))
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalid }))
     }
     
     func testConstantAssignmentIsCorrectlyLexed() {

@@ -104,7 +104,7 @@ public enum TokenType: String {
     case tokIdentifier
     case tokIntLiteral
     case tokDoubleLiteral
-    case tokInvalidToken
+    case tokInvalid
 }
 
 extension String {

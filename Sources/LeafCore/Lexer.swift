@@ -93,7 +93,7 @@ public class Lexer {
                 }
                 
                 if error {
-                    tokens.append(Token(tokenType: .tokInvalidToken, value: buffer))
+                    tokens.append(Token(tokenType: .tokInvalid, value: buffer))
                     print("Error undefined value: \"\(buffer)\" at \(lineNumber):\(charPosition - buffer.count)")
                 }
             }
