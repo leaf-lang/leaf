@@ -47,6 +47,11 @@ public class Lexer {
             getToken(buffer: buffer)
         }
         
+        //TODO: For debug purposes, remove later
+        for token in tokens {
+            print(token)
+        }
+        
         print("Total rocognised tokens: \(tokens.count)")
         return tokens
     }
@@ -73,7 +78,6 @@ public class Lexer {
             guard let previousToken = getPreviousToken() else {
                 return
             }
-            print(previousToken)
             
             if previousToken.tokenType == .tokCommentSingle {
                 shouldSkipLine = true
@@ -81,13 +85,10 @@ public class Lexer {
         } else {
             if buffer.isIdentifier {
                 tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
-                print(getPreviousToken()!)
             } else if buffer.isInt {
                 tokens.append(Token(tokenType: .tokIntLiteral, value: buffer))
-                print(getPreviousToken()!)
             } else if buffer.isDouble {
                 tokens.append(Token(tokenType: .tokDoubleLiteral, value: buffer))
-                print(getPreviousToken()!)
             } else if !buffer.isEmpty {
                 
                 var error = true
@@ -99,8 +100,6 @@ public class Lexer {
                         getToken(buffer: newBuffer)
                         
                         tokens.append(Token(tokenType: tokenType, value: i.description))
-                        print(getPreviousToken()!)
-                        
                         detectSingleLineComment()
                         
                         newBuffer.removeAll()
