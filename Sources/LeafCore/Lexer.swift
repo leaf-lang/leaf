@@ -66,11 +66,6 @@ public class Lexer {
         }
     }
     
-    func nextLine() {
-        lineNumber += 1
-        charPosition = 0
-    }
-    
     func getToken(buffer: String) {
         if let tokenType = TokenType(rawValue: buffer) {
             tokens.append(Token(tokenType: tokenType, value: buffer))
@@ -83,7 +78,6 @@ public class Lexer {
             if previousToken.tokenType == .tokCommentSingle {
                 shouldSkipLine = true
             }
-            
         } else {
             if buffer.isIdentifier {
                 tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
@@ -107,6 +101,8 @@ public class Lexer {
                         tokens.append(Token(tokenType: tokenType, value: i.description))
                         print(getPreviousToken()!)
                         
+                        detectSingleLineComment()
+                        
                         newBuffer.removeAll()
                         error = false
                     }
@@ -120,7 +116,27 @@ public class Lexer {
         }
     }
     
+    func nextLine() {
+        lineNumber += 1
+        charPosition = 0
+    }
+    
     func getPreviousToken() -> Token? {
         return tokens.last
+    }
+    
+    func detectSingleLineComment() {
+        let lastTwoTokens = Array(tokens.suffix(2))
+
+        guard lastTwoTokens.count == 2 else {
+            return
+        }
+        
+        if (lastTwoTokens.first?.tokenType == .tokForwardSlash &&
+            lastTwoTokens.last?.tokenType == .tokForwardSlash) {
+            tokens = Array(tokens.dropLast(2))
+            tokens.append(Token(tokenType: .tokCommentSingle, value: TokenType.tokCommentSingle.rawValue))
+            shouldSkipLine = true
+        }
     }
 }
