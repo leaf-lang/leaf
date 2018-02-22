@@ -59,4 +59,13 @@ class SingleLineCommentTests: XCTestCase {
         XCTAssertEqual(value.first?.tokenType, .tokCommentSingle)
         XCTAssertEqual(value.count, 5)
     }
+    
+    func testGivenASingleLineCommentAfterAValidStatement_ThenTheStatementIsLexedButTheCommentedOutCodeIsIgnored() {
+        let value = lexer.lex(data: """
+                                    let x = 10 // var test = "Test"
+                                    """)
+        
+        XCTAssertEqual(value.count, 5)
+        XCTAssertEqual(value.last?.tokenType, .tokCommentSingle)
+    }
 }

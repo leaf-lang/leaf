@@ -52,7 +52,6 @@ public class Lexer {
     }
     
     func getToken(for c: Character) {
-        
         if c == " " || c == lineFeed  {
             getToken(buffer: buffer)
             buffer.removeAll()
@@ -75,11 +74,11 @@ public class Lexer {
     func getToken(buffer: String) {
         if let tokenType = TokenType(rawValue: buffer) {
             tokens.append(Token(tokenType: tokenType, value: buffer))
-            print(getPreviousToken()!)
             
             guard let previousToken = getPreviousToken() else {
                 return
             }
+            print(previousToken)
             
             if previousToken.tokenType == .tokCommentSingle {
                 shouldSkipLine = true
