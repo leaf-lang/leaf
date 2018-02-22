@@ -23,6 +23,9 @@ public class Lexer {
     var buffer: String
     var lineNumber: Int
     var charPosition: Int
+    var shouldSkipLine = false
+    
+    let lineFeed: Character = "\n"
     
     public init() {
         tokens = [Token]()
@@ -32,10 +35,14 @@ public class Lexer {
     }
     
     public func lex(data: String) -> [Token] {
-        
         data.forEach({
+            if shouldSkipLine && $0 != lineFeed {
+                return
+            }
+            shouldSkipLine = false
             getToken(for: $0)
         })
+        
         if !buffer.isEmpty {
             getToken(buffer: buffer)
         }
@@ -45,35 +52,49 @@ public class Lexer {
     }
     
     func getToken(for c: Character) {
-        if c == " " || c == "\n"  {
+        
+        if c == " " || c == lineFeed  {
             getToken(buffer: buffer)
             buffer.removeAll()
         } else {
             buffer.append(c)
         }
         
-        if c == "\n" {
-            lineNumber += 1
-            charPosition = 0
+        if c == lineFeed {
+            nextLine()
         } else {
             charPosition += 1
         }
     }
     
+    func nextLine() {
+        lineNumber += 1
+        charPosition = 0
+    }
+    
     func getToken(buffer: String) {
         if let tokenType = TokenType(rawValue: buffer) {
             tokens.append(Token(tokenType: tokenType, value: buffer))
-            print(tokens.last!)
+            print(getPreviousToken()!)
+            
+            guard let previousToken = getPreviousToken() else {
+                return
+            }
+            
+            if previousToken.tokenType == .tokCommentSingle {
+                shouldSkipLine = true
+            }
+            
         } else {
             if buffer.isIdentifier {
                 tokens.append(Token(tokenType: .tokIdentifier, value: buffer))
-                print(tokens.last!)
+                print(getPreviousToken()!)
             } else if buffer.isInt {
                 tokens.append(Token(tokenType: .tokIntLiteral, value: buffer))
-                print(tokens.last!)
+                print(getPreviousToken()!)
             } else if buffer.isDouble {
                 tokens.append(Token(tokenType: .tokDoubleLiteral, value: buffer))
-                print(tokens.last!)
+                print(getPreviousToken()!)
             } else if !buffer.isEmpty {
                 
                 var error = true
@@ -85,7 +106,7 @@ public class Lexer {
                         getToken(buffer: newBuffer)
                         
                         tokens.append(Token(tokenType: tokenType, value: i.description))
-                        print(tokens.last!)
+                        print(getPreviousToken()!)
                         
                         newBuffer.removeAll()
                         error = false
@@ -98,6 +119,9 @@ public class Lexer {
                 }
             }
         }
-        
+    }
+    
+    func getPreviousToken() -> Token? {
+        return tokens.last
     }
 }

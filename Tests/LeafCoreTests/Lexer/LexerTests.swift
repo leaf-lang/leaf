@@ -25,7 +25,7 @@ class LexerTests: XCTestCase {
     
     let lexer = Lexer()
     
-    func testFunctionIsCorrectlyLexed() {
+    func testGivenACorrectFunctionDefinition_ThenTheTokensAreCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
                                         return x * 3
@@ -35,10 +35,10 @@ class LexerTests: XCTestCase {
         XCTAssertEqual(value.count, 15)
     }
     
-    func testFunctionContainsAnInvalidToken() {
+    func testGivenAnInvalidTokenBeforeAValidToken_ThenAnInvalidTokenIsIdentified() {
         let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
-                                        return x ^* 3
+                                        return x €* 3
                                     }
                                     """)
         
@@ -46,7 +46,18 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalid }))
     }
     
-    func testConstantAssignmentIsCorrectlyLexed() {
+    func testGivenAnInvalidTokenAfterAValidToken_ThenAnInvalidTokenIsIdentified() {
+        let value = lexer.lex(data: """
+                                    fn test(x: int) -> int {
+                                        return x *€ 3
+                                    }
+                                    """)
+        
+        XCTAssertEqual(value.count, 16)
+        XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalid }))
+    }
+    
+    func testGivenAValidConstantAssignmentStatement_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     let x = 10
                                     """)
@@ -60,7 +71,7 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.first(where: { $0.tokenType == .tokIntLiteral })?.value == "10")
     }
     
-    func testVariableAssignmentIsCorrectlyLexed() {
+    func testGivenAValidVariableAssignmentStatement_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     var x = 10
                                     """)
@@ -74,7 +85,7 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.first(where: { $0.tokenType == .tokIntLiteral })?.value == "10")
     }
     
-    func testConstantAssignmemtWithADoubleIsCorrectlyLexed() {
+    func testGivenAValidConstantAssignmentStatementWithADouble_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     let y = 3.14159
                                     """)

@@ -50,4 +50,3 @@ class DoubleTests: XCTestCase {
         XCTAssertTrue("0.0".isDouble)
     }
 }
-
