@@ -46,7 +46,7 @@ class DoubleTests: XCTestCase {
         XCTAssertTrue("12345.6789".isDouble)
     }
     
-    func testGiven0Dot0_ThenTheNumberIsValid() {
+    func testGiven0Dot0_ThenTheDoubleIsValid() {
         XCTAssertTrue("0.0".isDouble)
     }
 }
