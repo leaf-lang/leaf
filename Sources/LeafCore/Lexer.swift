@@ -94,6 +94,9 @@ public class Lexer {
                 var error = true
                 var newBuffer = String()
                 for i in buffer {
+                    if shouldSkipLine {
+                        return
+                    }
                     newBuffer.append(i)
                     if let tokenType = TokenType(rawValue: i.description) {
                         newBuffer.removeLast()
@@ -104,6 +107,8 @@ public class Lexer {
                         
                         newBuffer.removeAll()
                         error = false
+                    } else {
+                        error = true
                     }
                 }
                 
