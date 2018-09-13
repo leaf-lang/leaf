@@ -97,6 +97,5 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokEq }))
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokDoubleLiteral }))
         XCTAssertTrue(value.first(where: { $0.tokenType == .tokDoubleLiteral })?.value == "3.14159")
-        
     }
 }
