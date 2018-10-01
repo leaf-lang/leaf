@@ -21,59 +21,59 @@ import XCTest
 import LeafCore
 
 class SingleLineCommentTests: XCTestCase {
-    
+
     let lexer = Lexer()
-    
+
     func testGivenASingleLineCommentTokenFollowedByASpaceThenAConstDeclaration_ThenOnlyATokCommentSingleIsLexed() {
         let value = lexer.lex(data: """
                                     // let x = 10
                                     """)
-        
+
         XCTAssertEqual(value.count, 1)
         XCTAssertEqual(value.first?.tokenType, .tokCommentSingle)
     }
-    
+
     func testGivenASingleLineCommentFollowedByAConstDeclaration_ThenOnlyATokCommentSingleIsLexed() {
         let value = lexer.lex(data: """
                                     //let x = 10
                                     """)
-        
+
         XCTAssertEqual(value.count, 1)
         XCTAssertEqual(value.first?.tokenType, .tokCommentSingle)
     }
-    
+
     func testGivenASingleLineComment_ThenOnlyATokCommentSingleIsLexed() {
         let value = lexer.lex(data: """
                                     //
                                     """)
-        
+
         XCTAssertEqual(value.first?.tokenType, .tokCommentSingle)
     }
-    
+
     func testGivenASingleLineComment_ThenThatLineIsIgnored() {
         let value = lexer.lex(data: """
                                     // Test comment
                                     let x = 10
                                     """)
-        
+
         XCTAssertEqual(value.first?.tokenType, .tokCommentSingle)
         XCTAssertEqual(value.count, 5)
     }
-    
+
     func testGivenASingleLineCommentAfterAValidStatement_ThenTheStatementIsLexedButTheCommentedOutCodeIsIgnored() {
         let value = lexer.lex(data: """
                                     let x = 10 // var test = "Test"
                                     """)
-        
+
         XCTAssertEqual(value.count, 5)
         XCTAssertEqual(value.last?.tokenType, .tokCommentSingle)
     }
-    
+
     func testGivenASingleLineCommentAfterAValidStatementWithNoSpaceAfterComment_ThenTheStatementIsLexedButTheCommentedOutCodeIsIgnored() {
         let value = lexer.lex(data: """
                                     let x = 10 //var test = "Test"
                                     """)
-        
+
         XCTAssertEqual(value.count, 5)
         XCTAssertEqual(value.last?.tokenType, .tokCommentSingle)
     }

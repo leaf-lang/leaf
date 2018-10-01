@@ -21,47 +21,47 @@ import XCTest
 import LeafCore
 
 class IdentifierTests: XCTestCase {
-    
+
     func testGivenAnIdentifierWithASpace_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("identifier WithASpace".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierWithoutASpace_ThenTheIdentifierIsValid() {
         XCTAssertTrue("identifierWithoutASpace".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierInAllCapitals_ThenTheIdentifierIsValid() {
         XCTAssertTrue("IDENTIFIERINALLCAPS".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierInAllLowercase_ThenTheIdentifierIsValid() {
         XCTAssertTrue("identifierinalllowercase".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierWithMixedCase_ThenTheIdentifierIsValid() {
         XCTAssertTrue("identifierInUpperAndLowercase".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierContainingLettersAndNumbers_ThenTheIdentifierIsValid() {
         XCTAssertTrue("l4tt4rsAndNumb4rs".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierContainingJustNumbers_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("123456".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierWithHyphon_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("invalid-separatedIdentifier".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierWithUnderscores_ThenTheIdentifierIsValid() {
         XCTAssertTrue("valid_separatedIdentifier".isIdentifier)
     }
-    
+
     func testGivenAnIdentifierBeginsWithANumber_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("64CannotBeginWithANumber".isIdentifier)
     }
-    
+
     func testGivenAnEmptyIdentifier_ThenTheIdentifierIsInvalid() {
         XCTAssertFalse("".isIdentifier)
     }

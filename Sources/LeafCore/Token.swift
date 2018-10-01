@@ -41,7 +41,7 @@ public enum TokenType: String {
     case tokBreak = "break"
     case tokContinue = "continue"
     case tokNull = "null"
-    
+
     // Primatives
     case tokBool = "bool"
     case tokInt = "int"
@@ -50,7 +50,7 @@ public enum TokenType: String {
     case tokDouble = "double"
     case tokString = "string"
     case tokChar = "char"
-    
+
     // Brackets
     case tokLParen = "("
     case tokRParen = ")"
@@ -58,7 +58,7 @@ public enum TokenType: String {
     case tokRBrace = "}"
     case tokLSqBrack = "["
     case tokRSqBrack = "]"
-    
+
     // Special characters
     case tokComma = ","
     case tokDot = "."
@@ -66,41 +66,41 @@ public enum TokenType: String {
     case tokColon = ":"
     case tokSemiColon = ";"
     case tokQuestion = "?"
-    
+
     // Comments
     case tokCommentSingle = "//"
     case tokCommentMultiStart = "/*"
     case tokCommentMultiEnd = "*/"
-    
+
     // Arithmetic operators
     case tokPlus = "+"
     case tokMinus = "-"
     case tokAsterix = "*"
     case tokForwardSlash = "/"
     case tokPercent = "%"
-    
+
     // Assignment operators
     case tokEq = "="
     case tokPlusEq = "+="
     case tokMinusEq = "-="
-    
+
     // Relational operators
     case tokLessThan = "<"
     case tokGreaterThan = ">"
     case tokLessThanEq = "<="
     case tokGreaterThanEq = ">="
-    
+
     // Equality operators
     case tokEqTo = "=="
     case tokNotEqTo = "!="
-    
+
     // Negation operator
     case tokNot = "!"
-    
+
     // Conditional operators
     case tokAnd = "&&"
     case tokOr = "||"
-    
+
     case tokIdentifier
     case tokIntLiteral
     case tokDoubleLiteral
@@ -108,14 +108,14 @@ public enum TokenType: String {
 }
 
 extension String {
-    public var isIdentifier: Bool {        
+    public var isIdentifier: Bool {
         return range(of: "^[a-zA-Z][a-zA-Z0-9_]*$", options: .regularExpression) != nil
     }
-    
+
     public var isInt: Bool {
         return range(of: "^[0-9]+$", options: .regularExpression) != nil
     }
-    
+
     public var isDouble: Bool {
         return range(of: "^[0-9]+\\.[0-9]+$", options: .regularExpression) != nil
     }
