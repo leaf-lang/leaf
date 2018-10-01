@@ -21,11 +21,11 @@ import Foundation
 
 public final class Leaf {
     private let arguments: [String]
-    
+
     public init(arguments: [String] = CommandLine.arguments) {
         self.arguments = arguments
     }
-    
+
     public func run() throws {
         let lexer = Lexer()
         let tokens = lexer.lex(data: arguments[0])

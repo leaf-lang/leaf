@@ -21,19 +21,19 @@ import XCTest
 import LeafCore
 
 class IntegerTests: XCTestCase {
-    
+
     func testGivenAnIntegerWithASpace_ThenTheIntegerIsInvalid() {
         XCTAssertFalse("687 567".isInt)
     }
-    
+
     func testGivenAnIntegerContainingLetters_ThenTheIntegerIsInvalid() {
         XCTAssertFalse("687test567".isInt)
     }
-    
+
     func testGiven123456789_ThenTheIntegerIsValid() {
         XCTAssertTrue("123456789".isInt)
     }
-    
+
     func testGiven0_ThenTheIntegerIsValid() {
         XCTAssertTrue("0".isInt)
     }

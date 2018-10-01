@@ -22,46 +22,46 @@ import XCTest
 import LeafCore
 
 class LexerTests: XCTestCase {
-    
+
     let lexer = Lexer()
-    
+
     func testGivenACorrectFunctionDefinition_ThenTheTokensAreCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
                                         return x * 3
                                     }
                                     """)
-        
+
         XCTAssertEqual(value.count, 15)
     }
-    
+
     func testGivenAnInvalidTokenBeforeAValidToken_ThenAnInvalidTokenIsIdentified() {
         let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
                                         return x €* 3
                                     }
                                     """)
-        
+
         XCTAssertEqual(value.count, 16)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalid }))
     }
-    
+
     func testGivenAnInvalidTokenAfterAValidToken_ThenAnInvalidTokenIsIdentified() {
         let value = lexer.lex(data: """
                                     fn test(x: int) -> int {
                                         return x *€ 3
                                     }
                                     """)
-        
+
         XCTAssertEqual(value.count, 16)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokInvalid }))
     }
-    
+
     func testGivenAValidConstantAssignmentStatement_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     let x = 10
                                     """)
-        
+
         XCTAssertEqual(value.count, 4)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokLet }))
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIdentifier }))
@@ -70,12 +70,12 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIntLiteral }))
         XCTAssertTrue(value.first(where: { $0.tokenType == .tokIntLiteral })?.value == "10")
     }
-    
+
     func testGivenAValidVariableAssignmentStatement_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     var x = 10
                                     """)
-        
+
         XCTAssertEqual(value.count, 4)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokVar }))
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIdentifier }))
@@ -84,12 +84,12 @@ class LexerTests: XCTestCase {
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIntLiteral }))
         XCTAssertTrue(value.first(where: { $0.tokenType == .tokIntLiteral })?.value == "10")
     }
-    
+
     func testGivenAValidConstantAssignmentStatementWithADouble_ThenItIsCorrectlyLexed() {
         let value = lexer.lex(data: """
                                     let y = 3.14159
                                     """)
-        
+
         XCTAssertEqual(value.count, 4)
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokLet }))
         XCTAssertTrue(value.contains(where: { $0.tokenType == .tokIdentifier }))
